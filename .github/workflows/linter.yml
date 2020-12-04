@@ -1,0 +1,26 @@
+name: Linters
+
+on:
+  push:
+    branches: [ main, qa_branch ]
+  pull_request:
+    branches: [ main, qa_branch ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Super-Linter
+        #uses: github/super-linter@v3.13.5
+        #uses: docker://github/super-linter:latest
+        uses: docker://github/super-linter:v3
+        env:
+          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_PHP_BUILTIN: true
+          VALIDATE_CSS: true
+          VALIDATE_HTML: true
+          VALIDATE_JAVASCRIPT_ES: true
